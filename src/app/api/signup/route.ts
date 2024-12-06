@@ -66,7 +66,7 @@ export async function POST(req: Request): Promise<Response>{
         // ==============================
         // TODO: UnComment later
         
-        send verification email
+        // send verification email
         const emailResponse = await sendVerificationEmail(email, username, verificationCode)
 
         if (!emailResponse.success) {
