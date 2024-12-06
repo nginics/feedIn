@@ -11,11 +11,11 @@ export async function POST(request: Request){
     try {
         const user = await UserModel.findOne({username})
         if(!user){
-            return new ApiResponse(false, "User not found", 404).send();
+            return new ApiResponse(false, `User ${username} not found`, 404).send();
         }
 
         if(!user.isAcceptingMessage) {
-            return new ApiResponse(false, "User is not accepting messages", 403).send();
+            return new ApiResponse(false, `User ${username} is not accepting feedback`, 403).send();
         }
 
         const newMessage = {content, createdAt: new Date()};

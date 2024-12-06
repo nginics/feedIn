@@ -8,10 +8,10 @@ import UserModel from "@/model/User";
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            id: "credentails-login",
-            name: "Credentails",
+            id: "credentials",
+            name: "credentials",
             credentials: {
-                email: { label: "email", type: "text" },
+                email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials: any): Promise<any>{
@@ -20,20 +20,16 @@ export const authOptions: NextAuthOptions = {
                 
                 try {
                     const user = await UserModel.findOne({
-                        email: credentials.identifier.email,
+                        email: credentials.email,
                     })
 
-                    if(!user){
-                        throw new Error("No User found with this email");
-                    } 
+                    if (!user) throw new Error("No User found with this email");
                     
-                    if(!user.isVerified){
-                        throw new Error("Email not verified");
-                    }
+                    if (!user.isVerified) throw new Error("Email not verified");
 
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
-                    if(isPasswordCorrect){
+                    if (isPasswordCorrect) {
                         return user;
                     } else {
                         throw new Error("Incorrect Password");
@@ -52,6 +48,7 @@ export const authOptions: NextAuthOptions = {
     
     session: {
         strategy: "jwt",
+        maxAge: 60 * 60 * 24 * 7
     },
     
     secret: process.env.NEXTAUTH_SECRET,
@@ -75,7 +72,7 @@ export const authOptions: NextAuthOptions = {
             }
             return session
         }
-    }
+    },
 }
 
 export default authOptions;

@@ -4,7 +4,6 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 import ApiResponse from "@/helpers/apiResponse";
-import { log } from "console";
 
 export async function POST(request: Request){
 
@@ -20,12 +19,14 @@ export async function POST(request: Request){
 
     try {
         await dbConnect();
-        const updatedUser = UserModel.findByIdAndUpdate(userId, { isAcceptingMessage: acceptMessages }, {new: true});
+        const updatedUser = await UserModel.findByIdAndUpdate(userId, { isAcceptingMessage: acceptMessages }, {new: true}).select('isAcceptingMessage').exec();
+        // console.log("Updated User:", updatedUser);
+        
         if(!updatedUser) {
             return new ApiResponse(false, "Error updating user", 401).send();
         }
         
-        return new ApiResponse(false, "User accepting status updated successfully", 200).add("user", updatedUser).send();
+        return new ApiResponse(true, "User accepting status updated successfully", 200).add("user", updatedUser).send();
     } catch (error) {
         console.error("Error updating user ", error);
         return new ApiResponse(false, "Error updating user", 500).send();
@@ -33,27 +34,52 @@ export async function POST(request: Request){
 }
 
 export async function GET(request: Request){
-    const session = await getServerSession(authOptions);
-    const user: User = session?.user as User;
-
-    if (!session || !session.user) {
-        return new ApiResponse(false, "Not Authenticated", 401).send();
-    }
-
-    const userId = user._id;
 
     try {
         await dbConnect();
-        const fetchedUser = await UserModel.findById(userId);
         
-        if(!fetchedUser){
-            return new ApiResponse(false, "User Not Found", 404);
+        const queryParams = {
+            username: new URL(request.url).searchParams.get('username'),
+        }
+        console.log("Username Params:", queryParams)
+
+        if (!queryParams?.username) {
+            try {
+                const session = await getServerSession(authOptions);
+                const user: User = session?.user as User;
+
+                if (!session || !user) {
+                    return new ApiResponse(false, "Not Authenticated", 402)
+                }
+
+                const userId = user._id;
+                const fetchedUser = await UserModel.findById(userId);
+                
+                if(!fetchedUser){
+                    return new ApiResponse(false, "User Not Found", 404);
+                }
+
+                return new ApiResponse(true, "Successfully Fetched User details", 200).add("isAcceptingMessage", fetchedUser.isAcceptingMessage).send();
+    
+            } catch (error) {
+                console.log("Internal Server Error", error);
+                return new ApiResponse(false, "Internal Server Error", 500);
+            }
         }
 
-        return new ApiResponse(true, "Successfully Fetched User details", 200).add("isAcceptingMessages", fetchedUser.isAcceptingMessage).send();
+        const username = queryParams.username
+
+        const user = await UserModel.findOne({username})
+        // console.log("User", user)
+        
+        if(!user){
+            return new ApiResponse(false, `User ${username} not found`, 404).send();
+        }
+        
+        return new ApiResponse(true, "Successfully Fetched User details", 200).add("isAcceptingMessage", user.isAcceptingMessage).send();
 
     } catch (error) {
-        console.log("Error fetching user accepting status", error);
-        return new ApiResponse(false, "Error fetching user accepting status", 500);
+        console.log("Internal Server Error", error);
+        return new ApiResponse(false, "Internal Server Error", 500);
     }
 }

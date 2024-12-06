@@ -8,7 +8,7 @@ export async function POST(request: Request){
     await dbConnect();
 
     try {
-        const {username, code} = await request.json();
+        const {username, verificationCode} = await request.json();
         const user = await UserModel.findOne({username: username});
         
         if(!user){
@@ -18,8 +18,10 @@ export async function POST(request: Request){
             }, {status: 404})
         }
         
-        const isCodeValid = user.verifyCode === code;
+        const isCodeValid = user.verifyCode === verificationCode;
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) >= new Date();
+        console.log(verificationCode, user.verifyCode, isCodeValid);
+        
 
         if (isCodeValid && isCodeNotExpired) {
             user.isVerified = true;

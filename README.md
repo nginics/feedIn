@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FeedIn
 
-## Getting Started
+FeedIn is a simple web application for receiving anonymous feedback. I created this website out of curiosity to explore how credential-based login systems function in [NextAuth.js](https://next-auth.js.org/) and how it NextAuth operates behind the scenes.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Anonymous Feedback**: Users can provide feedback without revealing their identity.
+- **Credential-Based Login**: Secured with [NextAuth.js](https://next-auth.js.org/) for authentication.
+- **Email Notifications**: Sends email alerts using [Resend](https://resend.com/).
+- **Responsive UI**: Built with [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://shadcn.dev/) for a modern design.
+- **Data Persistence**: Feedback is stored in a [MongoDB](https://www.mongodb.com/) database using [Mongoose](https://mongoosejs.com/).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Frontend**: [Next.js](https://nextjs.org/), [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://shadcn.dev/).
+- **Backend**: [Next.js API routes](https://nextjs.org/docs/api-routes/introduction).
+- **Database**: [MongoDB](https://www.mongodb.com/), with [Mongoose](https://mongoosejs.com/) for object modeling.
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/) for secure login.
+- **Email Notifications**: [Resend](https://resend.com/).
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Before setting up the project, ensure you have the following:
 
-## Deploy on Vercel
+- Node.js (>=16.x)
+- MongoDB (local or cloud database like [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- Resend API key for email notifications
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Installation and Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/feedin.git
+   cd feedin

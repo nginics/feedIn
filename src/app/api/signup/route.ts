@@ -63,21 +63,21 @@ export async function POST(req: Request): Promise<Response>{
 
             registeredUser = await newUser.save()
         }
-        /* 
-        ==============================
-        TODO: Uncomment later
+        
+        // ==============================
+        // TODO: UnComment later
         
         //send verification email
-        const emailResponse = await sendVerificationEmail(email, username, verificationCode)
+        // const emailResponse = await sendVerificationEmail(email, username, verificationCode)
 
-        if (!emailResponse.success) {
-            return Response.json({
-                success: false,
-                message: emailResponse.message,
-            }, { status: 500 })
-        }
-        ================================
-        */
+        // if (!emailResponse.success) {
+        //     return Response.json({
+        //         success: false,
+        //         message: emailResponse.message,
+        //     }, { status: 500 })
+        // }
+        // ================================
+        
         return Response.json({
             success: true,
             message: "User Registerd Successfully. Verification Email Sent",

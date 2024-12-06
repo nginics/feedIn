@@ -70,3 +70,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .bg-grid-slate-100 {
+    background-image: url("/grid.svg")
+  }
+}

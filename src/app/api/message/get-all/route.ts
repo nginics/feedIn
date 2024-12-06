@@ -10,26 +10,30 @@ export async function GET(request: Request){
     await dbConnect();
 
     const session = await getServerSession(authOptions);
-    const user: User = session?.user as User;
+    // console.log("Server Session: ", session);
+    
+    const sessionUser: User = session?.user as User;
 
     if (!session || !session.user) {
         return new ApiResponse(false, "Not Authenticated", 401).send();
     }
 
-    const userId = new mongoose.Types.ObjectId(user._id);
+    const userId = new mongoose.Types.ObjectId(sessionUser._id);    
 
     try {
         const user = await UserModel.aggregate([
-            {$match: {id: userId}},
+            {$match: {_id: userId}},
             {$unwind: '$messages'},
             {$sort: {'messages.createdAt': -1}},
             {$group: {_id: '$_id', messages: {$push: '$messages'}}}
+            
         ])
-
-        if (!user || user.length == 0) {
+        // console.log("Aggregated messages: ", user[0]?.messages);
+        
+        if (!user) {
             return new ApiResponse(false, "User not found", 401).send();
         }
-        return new ApiResponse(true, user[0].messages, 200).send();
+        return new ApiResponse(true, "Fetched all messages", 200).add("messages", user[0]?.messages).send();
 
     } catch (error) {
         console.log("An unexpected error occured:", error);

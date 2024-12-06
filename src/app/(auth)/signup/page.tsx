@@ -102,7 +102,7 @@ const page = () => {
 			<div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
 				<div className="text-center">
 					<h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join FeedIn</h1>
-					<p className="mb-4">Sign Up to start your anonymous adventure</p>
+					<p className="mb-4">Sign Up to start your anonymous adventure.</p>
 				</div>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -164,20 +164,20 @@ const page = () => {
 						/>
 						<Button type="submit" disabled={isSubmitting}>
 							{
-							isSubmitting ? (
-								<>
-									<Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-								</>
-							) : ("Sign Up")
+								isSubmitting ? (
+									<>
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
+									</>
+								) : ("Sign Up")
 							}
 						</Button>
 					</form>
 				</Form>
 				<div className="text-center mt-4">
-				<p>
-					Already a member?{" "}
-					<Link href="/signin" className="text-blue-600 hover:text-blue-800">Sign In</Link>
-				</p>
+					<p>
+						Already a member?{" "}
+						<Link href="/signin" className="text-blue-600 hover:text-blue-800">Sign In</Link>
+					</p>
 				</div>
 			</div>
 		</div>
