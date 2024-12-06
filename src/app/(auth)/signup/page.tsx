@@ -10,11 +10,10 @@ import { useRouter } from "next/navigation";
 import { signUpSchema } from "@/schema/signUpSchema";
 import axios, {AxiosError} from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
-import { log } from "console";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Check, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 const page = () => {

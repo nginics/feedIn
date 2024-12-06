@@ -3,7 +3,6 @@ import UserModel from "@/model/User";
 import bcrypt from "bcryptjs";
 
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-import { log } from "console";
 
 export async function POST(req: Request): Promise<Response>{
     await dbConnect()
@@ -67,15 +66,15 @@ export async function POST(req: Request): Promise<Response>{
         // ==============================
         // TODO: UnComment later
         
-        //send verification email
-        // const emailResponse = await sendVerificationEmail(email, username, verificationCode)
+        send verification email
+        const emailResponse = await sendVerificationEmail(email, username, verificationCode)
 
-        // if (!emailResponse.success) {
-        //     return Response.json({
-        //         success: false,
-        //         message: emailResponse.message,
-        //     }, { status: 500 })
-        // }
+        if (!emailResponse.success) {
+            return Response.json({
+                success: false,
+                message: emailResponse.message,
+            }, { status: 500 })
+        }
         // ================================
         
         return Response.json({

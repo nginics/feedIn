@@ -10,12 +10,10 @@ import { acceptMessageSchema } from "@/schema/acceptMessageSchema";
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
-import { Heading1, Loader2, RefreshCcw, Clipboard } from "lucide-react";
+import { Loader2, RefreshCcw, Clipboard } from "lucide-react";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
-import React, { use, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 
