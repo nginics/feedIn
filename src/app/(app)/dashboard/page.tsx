@@ -16,7 +16,6 @@ import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-
 const page = () => {
 
     const [messages, setMessages] = useState<Message[]>([]);
@@ -28,8 +27,8 @@ const page = () => {
     const handleDeleteMessage = (messageId: string) => {
         setMessages(messages.filter((message) => message._id !== messageId))
     }
-
     const {data: session} = useSession();
+    const user = session?.user as User;
 
     const {register, watch, setValue} = useForm({
         resolver: zodResolver(acceptMessageSchema)
@@ -118,7 +117,6 @@ const page = () => {
         }
     }
 
-    const user = session?.user as User;
     
     useEffect(() => {
         const baseUrl = `${window.location.protocol}//${window.location.host}`;
