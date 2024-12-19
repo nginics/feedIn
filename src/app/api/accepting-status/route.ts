@@ -20,7 +20,6 @@ export async function POST(request: Request){
     try {
         await dbConnect();
         const updatedUser = await UserModel.findByIdAndUpdate(userId, { isAcceptingMessage: acceptMessages }, {new: true}).select('isAcceptingMessage').exec();
-        // console.log("Updated User:", updatedUser);
         
         if(!updatedUser) {
             return new ApiResponse(false, "Error updating user", 401).send();
@@ -51,28 +50,40 @@ export async function GET(request: Request){
                 console.log("Session", session)
 
                 if (!session || !user) {
-                    return new ApiResponse(false, "Not Authenticated", 402)
+                    return Response.json({
+                        success: false,
+                        message: "Not Authenticated",
+                    }, { status: 402 })
                 }
 
                 const userId = user._id;
                 const fetchedUser = await UserModel.findById(userId);
                 
                 if(!fetchedUser){
-                    return new ApiResponse(false, "User Not Found", 404);
+                    return Response.json({
+                        success: false,
+                        message: "User not found",
+                    }, { status: 404 })
                 }
 
-                return new ApiResponse(true, "Successfully Fetched User details", 200).add("isAcceptingMessage", fetchedUser.isAcceptingMessage).send();
+                return Response.json({
+                    success: true,
+                    message: "Successfully Fetched User details",
+                    isAcceptingMessage: fetchedUser.isAcceptingMessage,
+                }, { status: 200 })
     
             } catch (error) {
                 console.log("Internal Server Error", error);
-                return new ApiResponse(false, "Internal Server Error", 500);
+                return Response.json({
+                    success: false,
+                    message: "Internal Server Error",
+                }, { status: 500 })
             }
         }
 
         const username = queryParams.username
 
         const user = await UserModel.findOne({username})
-        // console.log("User", user)
         
         if(!user){
             return new ApiResponse(false, `User ${username} not found`, 404).send();
