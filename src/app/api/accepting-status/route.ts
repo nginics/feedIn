@@ -86,13 +86,23 @@ export async function GET(request: Request){
         const user = await UserModel.findOne({username})
         
         if(!user){
-            return new ApiResponse(false, `User ${username} not found`, 404).send();
+            return Response.json({
+                success: false,
+                message: `User ${username} not found`,
+            }, { status: 404 })
         }
-        
-        return new ApiResponse(true, "Successfully Fetched User details", 200).add("isAcceptingMessage", user.isAcceptingMessage).send();
 
+        return Response.json({
+            success: true,
+            message: "Successfully Fetched User details",
+            isAcceptingMessage: user.isAcceptingMessage,
+        }, { status: 200 })
+        
     } catch (error) {
         console.log("Internal Server Error", error);
-        return new ApiResponse(false, "Internal Server Error", 500);
+        return Response.json({
+            success: false,
+            message: "Internal Server Error",
+        }, { status: 500 })
     }
 }
