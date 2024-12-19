@@ -1,6 +1,6 @@
 # FeedIn
 
-FeedIn is a simple web application for receiving anonymous feedback. I created this website out of curiosity to explore how credential-based login systems function in [NextAuth.js](https://next-auth.js.org/) and how it NextAuth operates behind the scenes.
+FeedIn is a simple web application for receiving anonymous feedback. I created this website out of curiosity to explore how credential-based login systems function in [NextAuth.js](https://next-auth.js.org/) and how it operates behind the scenes.
 
 ---
 
@@ -10,7 +10,7 @@ FeedIn is a simple web application for receiving anonymous feedback. I created t
 - **Credential-Based Login**: Secured with [NextAuth.js](https://next-auth.js.org/) for authentication.
 - **Email Notifications**: Sends email alerts using [Resend](https://resend.com/).
 - **Responsive UI**: Built with [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://shadcn.dev/) for a modern design.
-- **Data Persistence**: Feedback is stored in a [MongoDB](https://www.mongodb.com/) database using [Mongoose](https://mongoosejs.com/).
+- **Data Persistence**: User data and feedback messages is stored in a [MongoDB](https://www.mongodb.com/) database using [Mongoose](https://mongoosejs.com/).
 
 ---
 
@@ -29,9 +29,9 @@ FeedIn is a simple web application for receiving anonymous feedback. I created t
 Before setting up the project, ensure you have the following:
 
 - Node.js (>=16.x)
-- MongoDB (local or cloud database like [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
-- Resend API key for email notifications
-
+- Next.js (>=15.x)
+- Zod (>=3.x)
+- React Hook Form (>=7.x)
 ---
 
 ## Installation and Setup
