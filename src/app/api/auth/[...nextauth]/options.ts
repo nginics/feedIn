@@ -1,8 +1,9 @@
-import { NextAuthOptions } from "next-auth"
+import { NextAuthOptions, RequestInternal } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import { User } from "next-auth";
 
 
 export const authOptions: NextAuthOptions = {
@@ -15,6 +16,10 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials: any): Promise<any>{
+
+                if(!credentials) {
+                    throw new Error("Missing credentials");
+                }
                 
                 await dbConnect();
                 
@@ -30,7 +35,7 @@ export const authOptions: NextAuthOptions = {
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
                     if (isPasswordCorrect) {
-                        return user;
+                        return user           
                     } else {
                         throw new Error("Incorrect Password");
                     }

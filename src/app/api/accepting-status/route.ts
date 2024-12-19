@@ -48,6 +48,8 @@ export async function GET(request: Request){
                 const session = await getServerSession(authOptions);
                 const user: User = session?.user as User;
 
+                console.log("Session", session)
+
                 if (!session || !user) {
                     return new ApiResponse(false, "Not Authenticated", 402)
                 }

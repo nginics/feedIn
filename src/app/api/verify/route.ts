@@ -17,7 +17,7 @@ export async function POST(request: Request){
         
         const isCodeValid = user.verifyCode === verificationCode;
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) >= new Date();
-        console.log(verificationCode, user.verifyCode, isCodeValid);
+        // console.log(verificationCode, user.verifyCode, isCodeValid);
         
 
         if (isCodeValid && isCodeNotExpired) {

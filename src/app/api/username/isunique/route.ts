@@ -15,7 +15,7 @@ export async function GET(request: Request) {
         const queryParams = {
             username: new URL(request.url).searchParams.get('username'),
         }
-        console.log(queryParams)
+        // console.log(queryParams)
         const result = userNameValidationQuery.safeParse(queryParams)
 
         if(!result.success){
