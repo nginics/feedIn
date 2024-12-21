@@ -1,6 +1,6 @@
-# FeedIn [Preview](https://feedin.netlify.app/)
+# [FeedIn](https://feedin.netlify.app/)
 
-FeedIn is a simple web application for receiving anonymous feedback. I created this website out of curiosity to explore how credential-based login systems function in [NextAuth.js](https://next-auth.js.org/) and how it operates behind the scenes.
+[FeedIn](https://feedin.netlify.app/) is a simple web application for receiving anonymous feedback. I created this website out of curiosity to explore how credential-based login systems function in [NextAuth.js](https://next-auth.js.org/) and how it operates behind the scenes.
 
 ---
 
